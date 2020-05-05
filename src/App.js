@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    todo: 
+      {
+        text: 'learn react',
+        completed: false
+      }
+  }
+
+  onChangeText = (event) => {
+    this.setState({
+      todo: {
+        ...this.state.todo, text: event.target.value 
+      }
+    })
+  }
+
+  onChangeCheckbox = () => {
+    this.setState({
+      todo: {
+        ...this.state.todo, completed: !this.state.todo.completed
+      }
+    })
+  }
+  
+
+  render() {
+    return (
+      <>
+        <input 
+        type="text"
+        value={this.state.todo.text}
+        onChange={this.onChangeText}
+        style={{
+          textDecoration: this.state.todo.completed ? 'line-through' : 'none'
+        }}
+        disabled={
+          this.state.todo.completed === true
+        }
+        />
+        <input
+        type="checkbox"
+        value={this.state.todo.completed}
+        onChange={this.onChangeCheckbox}
+        disabled={
+          this.state.todo.text === ''
+        }
+        /> 
+     </>
+    );
+  }
 }
 
-export default App;
+
+
+
+export default App
