@@ -1,59 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react';
 
-class App extends React.Component {
-  state = {
-    todo: 
-      {
-        text: 'learn react',
-        completed: false
-      }
-  }
+function App() { 
+  const [text, onChangeText] = useState('learn react');
+  const [completed, onChangeCheckbox] = useState(false);
 
-  onChangeText = (event) => {
-    this.setState({
-      todo: {
-        ...this.state.todo, text: event.target.value 
-      }
-    })
-  }
-
-  onChangeCheckbox = () => {
-    this.setState({
-      todo: {
-        ...this.state.todo, completed: !this.state.todo.completed
-      }
-    })
-  }
-  
-
-  render() {
-    return (
-      <>
-        <input 
+  return (
+    <>
+      <input 
         type="text"
-        value={this.state.todo.text}
-        onChange={this.onChangeText}
+        value={text}
+        onChange={event => onChangeText(event.target.value)}
         style={{
-          textDecoration: this.state.todo.completed ? 'line-through' : 'none'
+          textDecoration: completed ? 'line-through' : 'none'
         }}
-        disabled={
-          this.state.todo.completed === true
-        }
-        />
-        <input
+        disabled={completed === true}
+      />
+      <input
         type="checkbox"
-        value={this.state.todo.completed}
-        onChange={this.onChangeCheckbox}
-        disabled={
-          this.state.todo.text === ''
-        }
+        value={completed}
+        onChange={() => onChangeCheckbox(!completed)}
+        disabled={text === ''}
         /> 
-     </>
-    );
-  }
+    </>
+  );
 }
-
-
-
-
+      
 export default App
+
+
+
+
